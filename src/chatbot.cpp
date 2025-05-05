@@ -44,54 +44,60 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
-ChatBot::ChatBot(const ChatBot &chatBot){
-    std::cout << "ChatBot Copy Constructor" << "\n";
-    *_image = *chatBot._image;
-    *_currentNode = *chatBot._currentNode;
-    *_rootNode = *chatBot._rootNode;
-    *_chatLogic = *chatBot._chatLogic;
+ChatBot::ChatBot(const ChatBot &other){
+    std::cout <<"calling chatbot copy constructor" << "\n";
+    _image = new wxBitmap();
+    *_image = *other._image;
+    _currentNode = other._currentNode;
+    _rootNode = other._rootNode;
+    _chatLogic = other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);std::cout << "ChatBot Copy Constructor" << "\n";
 }
 
-ChatBot& ChatBot::operator=(const ChatBot &chatBot){
-    std::cout << "ChatBot Copy Assignment Operator" << "\n";
-    if (this == &chatBot){
-        return *this;
-    }
-    *_image = *chatBot._image;
-    *_currentNode = *chatBot._currentNode;
-    *_rootNode = *chatBot._rootNode;
-    *_chatLogic = *chatBot._chatLogic;
-    return *this;
-
-}
-
-ChatBot::ChatBot(ChatBot&& chatBot){
-    std::cout << "ChatBot Move Constructor" << "\n";
-    _image = chatBot._image;
-    _currentNode = chatBot._currentNode;
-    _rootNode = chatBot._rootNode;
-    _chatLogic = chatBot._chatLogic;
-    chatBot._image = NULL;
-    chatBot._currentNode = nullptr;
-    chatBot._rootNode = nullptr;
-    chatBot._chatLogic = nullptr;
+ChatBot& ChatBot::operator=(const ChatBot &other){
+    std::cout <<"calling chatbot copy assigment operator" << "\n";
+     if (this != &other){
+         _image = new wxBitmap();
+        *_image = *other._image;
+        _currentNode = other._currentNode;
+        _rootNode = other._rootNode;
+        _chatLogic = other._chatLogic;
+        _chatLogic -> SetChatbotHandle(this);
+     }
+     
+     return *this;
 
 }
 
-ChatBot& ChatBot::operator=(ChatBot &&chatBot){
-    std::cout << "ChatBot Move Assignment Operator" << "\n";
-    if (this == &chatBot){
-        return *this;
-    }
-    _image = chatBot._image;
-    _currentNode = chatBot._currentNode;
-    _rootNode = chatBot._rootNode;
-    _chatLogic = chatBot._chatLogic;
-    chatBot._image = NULL;
-    chatBot._currentNode = nullptr;
-    chatBot._rootNode = nullptr;
-    chatBot._chatLogic = nullptr;
-    return *this;
+ChatBot::ChatBot(ChatBot&& other){
+    std::cout <<"calling chatbot move constructor" << "\n";
+    _image = other._image;
+    _currentNode = other._currentNode;
+    _rootNode =  other._rootNode;
+    _chatLogic =  other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    other._image = NULL;
+    other._currentNode = nullptr;
+    other._rootNode = nullptr;
+    other._chatLogic = nullptr;
+
+}
+
+ChatBot& ChatBot::operator=(ChatBot &&other){
+    std::cout <<"calling chatbot move assigment operator" << "\n";
+     if (this != &other){
+            _image = other._image;
+            _currentNode = other._currentNode;
+            _rootNode =  other._rootNode;
+            _chatLogic =  other._chatLogic;
+            _chatLogic->SetChatbotHandle(this);
+            other._image = NULL;
+            other._currentNode = nullptr;
+            other._rootNode = nullptr;
+            other._chatLogic = nullptr;
+     }
+     
+     return *this;
 
 }
 ////
